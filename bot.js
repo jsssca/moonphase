@@ -1,11 +1,16 @@
 const twit = require('twit')
+const axios = require('axios')
 const config_twit = require('./config_twit')
+const Twitter = new twit(config_twit)
 const moon = require('./config_moon')
-const { api_key, location } = require('./config') 
+const { weather_req } = require('./config') 
 
-//const Twitter = new twit(config_twit)
 
-//const tweet = function () {}
+//TODO: Log Errors
+
+const tweet = function () {
+    
+}
 
 const calculate_moonphase = function (moonphase) {
 
@@ -27,7 +32,6 @@ const calculate_moonphase = function (moonphase) {
         mp = moon.waning_gibbous;
     }
     else if (moonphase === 0.5) {
-        console.log('fullmmon')
         mp = moon.full_moon;
     }
     else if (moonphase > 0.25) {
@@ -47,13 +51,39 @@ const calculate_moonphase = function (moonphase) {
 
 }
 
-console.log(calculate_moonphase(0.5))
-console.log('🌕')
-console.log(location)
+//The default GET retrieves 15 days worth of data. TODO: fetch only the current day's data 
+const tweet_moonphase = function () {
+    const weather_data = async () => {
+        try {
+            return await axios.get(weather_req);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
-//const fetch_moonphase = function () {}
+    const moonphase = async () => {
+        const wd = await weather_data();
 
-//fetch moonphase
-//parseFloat(moonphase)
-//if moonphasethen claculate_moonphase(moonphase)
-//if moonphase then tweet(moonphase)
+        if(wd.data) {
+            let mp = wd.data['days'][0]['moonphase'];
+
+            let mp_unicode = calculate_moonphase(parseFloat(mp));
+
+            if (mp_unicode) {
+                console.log(mp_unicode);
+                //tweet moonphase
+            }
+            else {
+                console.log(`Unicode for the moonphase ${mp} could not be found `);
+            }
+        }
+        else {
+            console.log('Weather data could not be found');
+        }
+    }
+    
+    moonphase();
+}
+
+tweet_moonphase()
+
