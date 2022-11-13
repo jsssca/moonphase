@@ -6,10 +6,21 @@ const moon = require('./config_moon')
 const { weather_req } = require('./config') 
 
 
-//TODO: Log Errors
+//TODO: Log Errors, add twit module and dotenv
 
-const tweet = function () {
-    
+const tweeted = function (err, repy) {
+    if (err !== undefined) {
+        console.log(err);
+    }
+    else {
+        console.log(`Tweeted: ${reply.text}`);
+    }
+}
+
+const tweet = function (moonphase) {
+    Twitter.post("statuses/update", {
+        status: moonphase
+    }, tweeted);
 }
 
 const calculate_moonphase = function (moonphase) {
@@ -71,7 +82,7 @@ const tweet_moonphase = function () {
 
             if (mp_unicode) {
                 console.log(mp_unicode);
-                //tweet moonphase
+                tweet(mp_unicode);
             }
             else {
                 console.log(`Unicode for the moonphase ${mp} could not be found `);
@@ -82,6 +93,7 @@ const tweet_moonphase = function () {
         }
     }
     
+    //set interval 
     moonphase();
 }
 
