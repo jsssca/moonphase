@@ -4,8 +4,8 @@
  * The sky is both aesthetic and prevents a duplicate status error from Twitter! 
  */
 
-const HEIGHT = 10; // height of sky
-const WIDTH = 12; // width of sky
+const HEIGHT = 8; // height of sky
+const WIDTH = 16; // width of sky
 
 const shuffle = function (stars) { 
     var m = stars.length, t, i;
@@ -30,8 +30,8 @@ function get_random_int(min, max) {
 };
 
 const place_moon = function (stars, moon) {
-    const row = get_random_int(0, HEIGHT + 1);
-    const col = get_random_int(0, WIDTH + 1);
+    const row = get_random_int(0, HEIGHT);
+    const col = get_random_int(0, WIDTH);
     
     stars[row*WIDTH + col] = moon;
 };
@@ -40,7 +40,7 @@ const add_new_line = function (stars) {
 
     let sky = '';
 
-    for (let i = 0; i < stars.length; i += WIDTH) {
+    for (let i = 0; i < stars.length - WIDTH; i += WIDTH) {
         sky += stars.slice(i, i+ WIDTH).join(" ");
         sky += '\n';
     }
@@ -50,16 +50,15 @@ const add_new_line = function (stars) {
 
 const put_in_sky = function (moon) {
 
-    let stars = [ '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 
-                '*', '*', '*', '*', '*', '*', '*', '*', ' ', ' ', '.', '.', 
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 
-                ' ', ' ', ' ', ' ', ' ', '✹', ' ', ' ', ' ', ' ', ' ', ' ', 
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  
-                '⚹', '⚹', '⚹', ' ', ' ', ' ', '✰', ' ', '★', ' ', '✧', '✦']; 
+    let stars = [ '.', '.', '.', '.', '.', '.', '.', '.', '.', ' ', ' ', ' ', '⚹', '⚹', ' ', ' ', 
+                '*', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '.', '.', '⚹', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '✰', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', '✹', ' ', ' ', ' ', ' ', ' ', ' ', '✵', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '✧', '✦', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                '.', '.', '.', '.', '.', '.', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', '★', ' ', ' ', ' ', '✫', ' ', ' ', ' ', ' '];
 
     shuffle(stars);
 
@@ -68,6 +67,6 @@ const put_in_sky = function (moon) {
     return add_new_line(stars);
 };
 
-console.log(put_in_sky('🌔'));
+module.exports = put_in_sky;
 
 

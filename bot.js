@@ -2,7 +2,8 @@ const twit = require('twit')
 const axios = require('axios')
 const config_twit = require('./config_twit')
 const moon = require('./config_moon') // contains unicode for the moon phases
-const { weather_req } = require('./config') // weather API request 
+const { weather_req } = require('./config') // weather API request
+const put_in_sky = require('./stars')
 
 //TODO: Log Errors, add twit module and dotenv, comments!!
 
@@ -80,16 +81,16 @@ const tweet_moonphase = function () {
             let mp_unicode = calculate_moonphase(parseFloat(mp)); // find the corresponding unicode
 
             if (mp_unicode) {
-                //put moon in sky
+                const moon_in_sky = put_in_sky(mp_unicode); //put moon in sky
                 //console.log(mp_unicode);
-                tweet(mp_unicode); // Tweet today's moonphase!
+                tweet(moon_in_sky); // Tweet today's moonphase!
             }
             else {
-                console.log(`Unicode for the moonphase ${mp} could not be found `);
+                console.log(`Unicode for the moonphase ${mp} could not be found.`);
             }
         }
         else {
-            console.log('Weather data could not be found');
+            console.log('Weather data could not be found.');
         }
     }
     
@@ -97,5 +98,6 @@ const tweet_moonphase = function () {
 }
 
 //set interval 
-tweet_moonphase()
+tweet_moonphase();
 
+//console.log(put_in_sky('🌔'))
