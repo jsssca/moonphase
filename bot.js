@@ -6,9 +6,9 @@ const moon = require('./config_moon')
 const { weather_req } = require('./config') 
 
 
-//TODO: Log Errors, add twit module and dotenv
+//TODO: Log Errors, add twit module and dotenv, comments!!
 
-const tweeted = function (err, repy) {
+const tweeted = function (err, reply) {
     if (err !== undefined) {
         console.log(err);
     }
@@ -81,6 +81,7 @@ const tweet_moonphase = function () {
             let mp_unicode = calculate_moonphase(parseFloat(mp));
 
             if (mp_unicode) {
+                //put moon in sky
                 console.log(mp_unicode);
                 tweet(mp_unicode);
             }
@@ -93,9 +94,9 @@ const tweet_moonphase = function () {
         }
     }
     
-    //set interval 
     moonphase();
 }
 
+//set interval 
 tweet_moonphase()
 
