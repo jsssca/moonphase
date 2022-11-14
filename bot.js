@@ -1,12 +1,12 @@
 const twit = require('twit')
 const axios = require('axios')
 const config_twit = require('./config_twit')
-const Twitter = new twit(config_twit)
-const moon = require('./config_moon')
-const { weather_req } = require('./config') 
-
+const moon = require('./config_moon') // contains unicode for the moon phases
+const { weather_req } = require('./config') // weather API request 
 
 //TODO: Log Errors, add twit module and dotenv, comments!!
+
+const Twitter = new twit(config_twit)
 
 const tweeted = function (err, reply) {
     if (err !== undefined) {
@@ -23,7 +23,7 @@ const tweet = function (moonphase) {
     }, tweeted);
 }
 
-const calculate_moonphase = function (moonphase) {
+const calculate_moonphase = function (moonphase) {  // if NaN ?????
 
     let mp = ''
     
@@ -62,11 +62,10 @@ const calculate_moonphase = function (moonphase) {
 
 }
 
-//The default GET retrieves 15 days worth of data. TODO: fetch only the current day's data 
 const tweet_moonphase = function () {
     const weather_data = async () => {
         try {
-            return await axios.get(weather_req);
+            return await axios.get(weather_req); //The default GET retrieves 15 days worth of data. TODO: fetch only the current day's data 
         } catch (err) {
             console.log(err);
         }
@@ -76,14 +75,14 @@ const tweet_moonphase = function () {
         const wd = await weather_data();
 
         if(wd.data) {
-            let mp = wd.data['days'][0]['moonphase'];
+            let mp = wd.data['days'][0]['moonphase']; // select today's moonphase from the expected JSON
 
-            let mp_unicode = calculate_moonphase(parseFloat(mp));
+            let mp_unicode = calculate_moonphase(parseFloat(mp)); // find the corresponding unicode
 
             if (mp_unicode) {
                 //put moon in sky
-                console.log(mp_unicode);
-                tweet(mp_unicode);
+                //console.log(mp_unicode);
+                tweet(mp_unicode); // Tweet today's moonphase!
             }
             else {
                 console.log(`Unicode for the moonphase ${mp} could not be found `);

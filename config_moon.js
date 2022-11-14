@@ -1,3 +1,6 @@
+/**
+ * Unicode values for each moon phase
+ */
 module.exports = {
     new_moon: '🌑', // 0
     waxing_crescent: '🌒', // 0-0.25
