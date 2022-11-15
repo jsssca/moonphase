@@ -1,13 +1,13 @@
-const twit = require('twit')
-const axios = require('axios')
-const config_twit = require('./config_twit')
-const moon = require('./config_moon') // contains unicode for the moon phases
-const { weather_req } = require('./config') // weather API request
-const put_in_sky = require('./stars')
+require('dotenv').config();
 
-//TODO: Log Errors, add twit module and dotenv, comments!!
+const twit = require('twit');
+const axios = require('axios');
+const Twitter = require('./twit');
+const moon = require('./config_moon'); // contains unicode for the moon phases
+const { weather_req } = require('./config'); // weather API request
+const put_in_sky = require('./stars');
 
-const Twitter = new twit(config_twit)
+//TODO: Log Errors
 
 const tweeted = function (err, reply) {
     if (err !== undefined) {
@@ -16,15 +16,15 @@ const tweeted = function (err, reply) {
     else {
         console.log(`Tweeted: ${reply.text}`);
     }
-}
+};
 
 const tweet = function (moonphase) {
     Twitter.post("statuses/update", {
         status: moonphase
     }, tweeted);
-}
+};
 
-const calculate_moonphase = function (moonphase) {  // if NaN ?????
+const calculate_moonphase = function (moonphase) {  
 
     let mp = ''
     
@@ -61,7 +61,7 @@ const calculate_moonphase = function (moonphase) {  // if NaN ?????
 
     return mp;
 
-}
+};
 
 const tweet_moonphase = function () {
     const weather_data = async () => {
@@ -82,7 +82,7 @@ const tweet_moonphase = function () {
 
             if (mp_unicode) {
                 const moon_in_sky = put_in_sky(mp_unicode); //put moon in sky
-                //console.log(mp_unicode);
+
                 tweet(moon_in_sky); // Tweet today's moonphase!
             }
             else {
@@ -95,7 +95,7 @@ const tweet_moonphase = function () {
     }
     
     moonphase();
-}
+};
 
 //set interval 
 tweet_moonphase();
