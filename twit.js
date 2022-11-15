@@ -1,6 +1,6 @@
 
 /** 
- * TWITTER APP CONFIGURATION
+ * Twitter configuration
  */
 
 const twit = require('twit');

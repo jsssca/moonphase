@@ -7,7 +7,10 @@ const moon = require('./config_moon'); // contains unicode for the moon phases
 const { weather_req } = require('./config'); // weather API request
 const put_in_sky = require('./stars');
 
-//TODO: Log Errors
+
+const dayInMilliseconds = 1000 * 60 * 60 * 24;
+
+//TODO: Log Errors, timeouts
 
 const tweeted = function (err, reply) {
     if (err !== undefined) {
@@ -97,7 +100,7 @@ const tweet_moonphase = function () {
     moonphase();
 };
 
-//set interval 
+
 tweet_moonphase();
 
-//console.log(put_in_sky('🌔'))
+setInterval(tweet_moonphase, dayInMilliseconds);
