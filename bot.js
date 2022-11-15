@@ -103,4 +103,4 @@ const tweet_moonphase = function () {
 
 tweet_moonphase();
 
-setInterval(tweet_moonphase, dayInMilliseconds);
+setInterval(tweet_moonphase, dayInMilliseconds); // TODO: tweet at a specific time in the day according to set location 

@@ -7,6 +7,7 @@
 const HEIGHT = 8; // height of sky
 const WIDTH = 16; // width of sky
 
+//Fisher–Yates shuffle
 const shuffle = function (stars) { 
     var m = stars.length, t, i;
 
@@ -25,27 +26,25 @@ const shuffle = function (stars) {
     return stars;
 };
 
-function get_random_int(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-};
-
 const place_moon = function (stars, moon) {
-    const row = get_random_int(0, HEIGHT);
-    const col = get_random_int(0, WIDTH);
+    const row = Math.floor(Math.random() * HEIGHT);
+    const col = Math.floor(Math.random() * WIDTH);
     
+    // put moon in a random place in stars
     stars[row*WIDTH + col] = moon;
 };
 
-const add_new_line = function (stars) {
+const add_new_line = function (stars) { 
 
     let sky = '';
 
+    //add a newline at the end of each row
     for (let i = 0; i < stars.length - WIDTH; i += WIDTH) {
         sky += stars.slice(i, i+ WIDTH).join(" ");
         sky += '\n';
     }
 
-    return sky;
+    return sky; // return a string that depicts a HEIGHTxWIDTH starry sky 
 };
 
 const put_in_sky = function (moon) {
