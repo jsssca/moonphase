@@ -3,12 +3,11 @@ require('dotenv').config();
 const twit = require('twit');
 const axios = require('axios');
 const Twitter = require('./twit');
+const schedule = require('node-schedule');
 const moon = require('./config_moon'); // contains unicode for the moon phases
 const { weather_req } = require('./config'); // weather API request
 const put_in_sky = require('./stars');
 
-
-const dayInMilliseconds = 1000 * 60 * 60 * 24;
 
 //TODO: Log Errors, timeouts
 
@@ -103,4 +102,4 @@ const tweet_moonphase = function () {
 
 tweet_moonphase();
 
-setInterval(tweet_moonphase, dayInMilliseconds); // TODO: tweet at a specific time in the day according to set location 
+schedule.scheduleJob('0 0 * * *', tweet_moonphase);  // TODO: tweet at a specific time in the day according to set location 
