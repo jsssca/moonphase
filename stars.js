@@ -82,5 +82,5 @@ const put_in_sky = function (moon) {
 
 module.exports = put_in_sky;
 
-console.log(put_in_sky('🌖'));
+//console.log(put_in_sky('🌖'));
 
