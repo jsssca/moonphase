@@ -39,7 +39,8 @@ const place_moon = function (stars, moon) {
   stars[row * WIDTH + col] = moon;
 };
 
-const add_new_line = function (stars) {
+// returns a string that depicts a HEIGHTxWIDTH starry sky
+const getString = function (stars) {
   let sky = "";
 
   //add a newline at the end of each row
@@ -48,7 +49,7 @@ const add_new_line = function (stars) {
     sky += "\n";
   }
 
-  return sky; // return a string that depicts a HEIGHTxWIDTH starry sky
+  return sky;
 };
 
 const put_in_sky = function (moon) {
@@ -81,7 +82,7 @@ const put_in_sky = function (moon) {
 
   place_moon(stars, moon);
 
-  return add_new_line(stars);
+  return getString(stars);
 };
 
 module.exports = put_in_sky;
